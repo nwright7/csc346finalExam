@@ -2,13 +2,14 @@ package org.example.nwright7;
 
 import edu.missouriwestern.csc346.monsters.*;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -20,40 +21,45 @@ public class App extends Application {
 
     //VBox vBox from video 4
     static VBox centerPane = new VBox();
+    //adding a new border pane
+    BorderPane borderPane = new BorderPane();
+    static VBox rosterBox = new VBox();
+    //change this to a setter?
+    public static TextField fightAnnouncement = new TextField("No Fights to Announce. PLease stand by.");
 
     @Override
     public void start(Stage stage) {
-
+        //adding a title
+        stage.setTitle("Nick Wright Battle Royale");
         String s = "Hello. Prepare to be amazed.";
-        //var javaVersion = SystemInfo.javaVersion();
-        //var javafxVersion = SystemInfo.javafxVersion();
-        //Cook cook = new Cook();
-        //GiantRat ricky = new GiantRat();
-        //s = cook.toString();
-
-        //centerPane.getChildren().add(new Button("Hello."));
-        //var label = new Label(s);
-        //centerPane.getChildren().add(label);
-        //centerPane.getChildren().add(new TextField("some text"));
-        //addToVBox("Added with addToVBox Method");
-
-        //String [] words = cook.toString().split("\\s+");
-        //addToVBox(words);
-        //addToVBox(words);
-        //addToVBox(words);
-
-
-
 
         //creating a scroll pane
         //the scroll pane will not show unless there is enough in the pane for it to run out of space
         ScrollPane scrollPane = new ScrollPane(centerPane);
-        //you can add stuff after the next three lines, and it will still show in the window
-        var scene = new Scene(scrollPane, 1024, 768);   //v = width, v1 = height
+        //setting the scrollPane to the center of the borderPane
+        borderPane.setCenter(scrollPane);
+
+        //changing the alignment and the color of the fightAnnouncement
+        fightAnnouncement.setAlignment(Pos.CENTER);
+        //setting the background color
+        fightAnnouncement.setBackground(new Background(new BackgroundFill(Color.SLATEGREY, null, null)));
+
+        //setting the bottom pane to fightAnnouncement
+        borderPane.setBottom(fightAnnouncement);
+
+        //setting the width of the rosterBox
+        rosterBox.setMinWidth(250);
+        //adding the roster to the right
+        borderPane.setRight(rosterBox);
+
+        //you can add stuff after the next three lines of uncommented code, and it will still show in the window
+        var scene = new Scene(borderPane, 1024, 768);   //v = width, v1 = height
+        //as of right now, the scene is composed of the borderPane which holds the scrollPane which holds the
+        //vbox which holds all the labels consisting of each line
         stage.setScene(scene);
         stage.show();
         mainApp();
-    }
+    }//end of start
 
     public static void main(String[] args) {
         launch();
@@ -78,36 +84,6 @@ public class App extends Application {
     }//end of addToVBox
 
     public static void mainApp(){
-//        //creating players
-//        //creating cooks
-//        Player cook1 = new Player ("Ptomain Tony", new Cook());
-//        Player cook2 = new Player("Broccoli Spears", new Cook());
-//        //creating rats
-//        Player rat1 = new Player("Ricky", new GiantRat());
-//        Player rat2 = new Player("Randy", new GiantRat());
-//        //creating slimes
-//        Player slime1 = new Player("Peter", new Slime());
-//        Player slime2 = new Player("Paul", new Slime());
-//        //creating hydras
-//        Player hydra1 = new Player("Draco", new Hydra());
-//        Player hydra2 = new Player("Seviper", new Hydra());
-//        //creating wyverns
-//        Player wyvern1 = new Player("Azure", new Wyvern());
-//        Player wyvern2 = new Player("Cerulean", new Wyvern());
-//
-//        //adding all players to roster
-//        ArrayList<Player> roster = new ArrayList<>();
-//        roster.add(cook1);
-//        roster.add(cook2);
-//        roster.add(rat1);
-//        roster.add(rat2);
-//        roster.add(slime1);
-//        roster.add(slime2);
-//        roster.add(hydra1);
-//        roster.add(hydra2);
-//        roster.add(wyvern1);
-//        roster.add(wyvern2);
-
 
         ArrayList<Player> roster = new ArrayList<>();
         //creating players and adding them to the roster
@@ -138,10 +114,22 @@ public class App extends Application {
 
     public static void blankLine(){addToVBox(" ");}//end of blankLine
     private static void displayRoster(ArrayList<Player> roster){
-        blankLine();
-        addToVBox("====== The Roster ======");
+        //every time the rosterBox gets called, it will clear the previous rosterBox
+        rosterBox.getChildren().clear();
+        //creating a title for the rosterBox
+        TextField title = new TextField("The Roster");
+        //setting the alignment of the title
+        title.setAlignment(Pos.CENTER);
+        //setting the background color
+        title.setBackground(new Background(new BackgroundFill(Color.SLATEGREY, null, null)));
+        //adding the title to the rosterBox
+        rosterBox.getChildren().add(title);
+
+        //loop for adding each player
         for(Player p : roster){
-            addToVBox(p.toString());
+            //addToVBox(p.toString());
+            rosterBox.getChildren().add(new TextField(p.toString()));
+
         }
         blankLine();
     }//end of displayRoster
