@@ -15,7 +15,10 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * JavaFX App
+ * JavaFX App which implements homework 6 (the game)
+ *
+ * @author Nick Wright
+ * @since May 2022
  */
 public class App extends Application {
 
