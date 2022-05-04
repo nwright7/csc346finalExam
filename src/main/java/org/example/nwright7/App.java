@@ -25,7 +25,9 @@ public class App extends Application {
     BorderPane borderPane = new BorderPane();
     static VBox rosterBox = new VBox();
     //change this to a setter?
-    public static TextField fightAnnouncement = new TextField("No Fights to Announce. PLease stand by.");
+    public static TextField fightAnnouncement = new TextField("No Fights to Announce. Please stand by.");
+    //creating another VBox to hold the round announcement
+    static VBox roundAnn = new VBox();
 
     @Override
     public void start(Stage stage) {
@@ -43,6 +45,8 @@ public class App extends Application {
         fightAnnouncement.setAlignment(Pos.CENTER);
         //setting the background color
         fightAnnouncement.setBackground(new Background(new BackgroundFill(Color.SLATEGREY, null, null)));
+        //changing the text to white
+        fightAnnouncement.setStyle("-fx-text-fill: white;");
 
         //setting the bottom pane to fightAnnouncement
         borderPane.setBottom(fightAnnouncement);
@@ -51,6 +55,10 @@ public class App extends Application {
         rosterBox.setMinWidth(250);
         //adding the roster to the right
         borderPane.setRight(rosterBox);
+
+        //adding the round announcement to the top of the borderPane
+        borderPane.setTop(roundAnn);
+
 
         //you can add stuff after the next three lines of uncommented code, and it will still show in the window
         var scene = new Scene(borderPane, 1024, 768);   //v = width, v1 = height
@@ -122,6 +130,7 @@ public class App extends Application {
         title.setAlignment(Pos.CENTER);
         //setting the background color
         title.setBackground(new Background(new BackgroundFill(Color.SLATEGREY, null, null)));
+        title.setStyle("-fx-text-fill: white;");
         //adding the title to the rosterBox
         rosterBox.getChildren().add(title);
 
